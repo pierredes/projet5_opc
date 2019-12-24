@@ -12,7 +12,7 @@
                 <p>je vous souhaite la bienvenue sur mon blog</p>
             </header>
             <div id="contenu">
-                <?php $contenu ?>
+                <?= $contenu ?>
             </div>
             <footer id="piedBlog">
                 Blong réalisé avec php, html et css
