@@ -1,31 +1,16 @@
-<!doctype html>
-<html lang="fr">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <link rel="stylesheet" href="style.css">
-        <title>Mon blog</title>
-    </head>
-    <body>
-        <div id="global">
-            <header>
-                <a href="index.php"><h1 id="titreBlog">Mon Blog</h1></a>
-                <p>je vous souhaite la bienvenue sur mon blog</p>
-            </header>
-            <div id="contenu">
-                <?php foreach ($post as $value): ?>
-                    <article>
-                        <header>
-                            <h1 class="titreBillet"><?= $value['titre'] ?></h1>
-                            <time><?= $value['date_maj'] ?></time>
-                        </header>
-                        <p> <?= $value['chapo'] ?> </p>
-                    </article>
-                    <hr>
-                <?php endforeach; ?>
-            </div>
-            <footer id="piedBlog">
-                Blong réalisé avec php, html et css
-            </footer>
-        </div>
-    </body>
-</html> 
+<?php $titre =  "Mon blog"; ?>
+
+<?php ob_start(); ?>
+<?php foreach ($post as $posts): ?>
+    <article>
+        <header>
+            <h1 class="titreBillet"><?= $posts['titre'] ?> </h1>
+            <time><?= $posts['date_maj'] ?> </time>
+        </header>
+        <p><?= $posts['chapo'] ?></p>
+    </article>
+    <hr>
+<?php endforeach; ?>
+<?php $contenu = ob_get_clean(); ?>
+
+<?php require 'gabari.php'; ?>
