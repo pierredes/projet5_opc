@@ -1,5 +1,4 @@
-<?php $titre = "Mon blog - " . $post['titre']; ?>
-<?php ob_start(); ?>
+<?php $his->titre = "Mon blog - " . $post['titre']; ?>
 
 <article>
     <header>
@@ -18,6 +17,3 @@
 <p> <?= $commentaires['contenu'] ?> </p>
 <time> <?= $commentaires['date'] ?> </time>
 <?php endforeach; ?>
-<?php $contenu = ob_get_clean(); ?>
-
-<?php require 'vue/gabari.php'; ?>

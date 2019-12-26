@@ -1,6 +1,5 @@
-<?php $titre =  "Mon blog"; ?>
+<?php $this->titre =  "Mon blog"; ?>
 
-<?php ob_start(); ?>
 <?php foreach ($post as $posts): ?>
     <article>
         <header>
@@ -13,6 +12,4 @@
     </article>
     <hr>
 <?php endforeach; ?>
-<?php $contenu = ob_get_clean(); ?>
 
-<?php require 'vue/gabari.php'; ?>

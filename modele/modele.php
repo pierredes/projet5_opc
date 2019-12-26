@@ -1,31 +1,38 @@
 <?php
 
-function touslesposts(){
-    $bdd = connectionbdd();
-    $post = $bdd->query('SELECT * FROM posts');
-    return $post;
+abstract class modele{
+
+    // accès à la base de données
+    private $bdd;
+
+    // Execute une rêquete sql avec ou sans paramètre
+
+    protected function executerrequete($requete, $params = null){
+        if($params == null){
+            $resultat = $this->connectionbdd()->query($requete); // execution direct (sans parametre)
+        }
+        else{
+            $resultat = $this->connectionbdd()->prepare($requete); // execution préparée (avec parametre)
+            $resultat->execute($params);
+        }
+        return $resultat;
+    }
+
+    // connexion à la base de données
+    private function connectionbdd(){
+        if($this->bdd == null){
+            $this->$bdd = new PDO('mysql:host=localhost;dbname=projet5;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        }
+        return $this->$bdd;
+    }
 }
 
-function connectionbdd(){
-    $bdd = new PDO('mysql:host=localhost;dbname=projet5;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-    return $bdd;
-}
 
-function detailspost($idpost){
-    $bdd = connectionbdd();
-    $post = $bdd->prepare('SELECT * FROM posts WHERE numero_post=?');
-    $post-> execute(array($idpost));
-    if($post->rowCount() == 1)
-        return $post->fetch();
-    else
-        throw new excption ("Aucun post ne correspond à l'identifiant $idpost");
-}
 
-function commentairedunpost($idpost){
-    $bdd = connectionbdd();
-    $commentaire = $bdd->prepare('SELECT * FROM commentaire INNER JOIN utilisateur ON commentaire.id_utilisateur = utilisateur.id WHERE numero_post = ? AND valider= "1" ');
-    $commentaire->execute(array($idpost));
-    return $commentaire;
-}
+
+
+
+
+
 
 
