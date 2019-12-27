@@ -1,4 +1,4 @@
-<?php $his->titre = "Mon blog - " . $post['titre']; ?>
+<?php $this->titre = "Mon blog - " . $post['titre']; ?>
 
 <article>
     <header>
@@ -10,7 +10,7 @@
 </article>
 <hr>
 <header>
-<h1 id="titreReponse"> Réponse à : <?= $post['titre']; ?></h1>
+<h1 id="titreReponse"> Réponse à : <?= $post['titre'] ?></h1>
 </header>
 <?php foreach($commentaire as $commentaires): ?>
 <p> De : <?= $commentaires['prenom'] ?> <?= $commentaires['nom'] ?></p>

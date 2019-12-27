@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="contenu/style.css">
         <title>Mon blog</title>
     </head>
     <body>
@@ -15,7 +15,7 @@
                 <?= $contenu ?>
             </div>
             <footer id="piedBlog">
-                Blong réalisé avec php, html et css
+                Blog réalisé avec php, html et css
             </footer>
         </div>
     </body>

@@ -28,12 +28,13 @@ class vue{
 
             ob_start();
             require $fichier;
-            return ob_end_clean();
+            return ob_get_clean();
         }
         else{
-            throw new Exception ('Fichier' $fichier 'introuvable');
+            throw new Exception ('Fichier' .$fichier. 'introuvable');
         }
     }
+    
 }
 
 
