@@ -17,3 +17,9 @@
 <p> <?= $commentaires['contenu'] ?> </p>
 <time> <?= $commentaires['date'] ?> </time>
 <?php endforeach; ?>
+
+<form action="index.php?action=commenter" method="post">
+    <textarea name="contenu" id="textecommentaire" rows="4" placeholder="Votre commentaire" required></textarea>
+    <input type="hidden" name="numero_post" value="<?= $post['numero_post'] ?>">
+    <input type="submit" value="Commenter">
+</form>

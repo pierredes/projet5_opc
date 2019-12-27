@@ -18,16 +18,17 @@ class routeur{
         try{
             if(isset($_GET['action'])){
                 if($_GET['action'] == 'post'){
-                    if(isset($_GET['numero_post'])){
-                        $idpost = intval($_GET['numero_post']);
-                        if($idpost != 0){
-                            $this->controleurUnpost->detailsunpost($idpost);
-                        }
-                        else
-                            throw new Exception ('Identifiant de post invalide');
+                    $idpost = intval($_GET['numero_post']);
+                    if($idpost != 0){
+                        $this->controleurUnpost->detailsunpost($idpost);
                     }
                     else
-                    throw new Exception ('Identifiant de post non défini');
+                        throw new Exception ('Identifiant de post invalide');
+                }
+                else if ($_GET["action"] == 'commenter'){
+                    $contenu = $this->getparametre($_POST, 'contenu');
+                    $numero_post = $this->getparametre($_POST, 'numero_post');
+                    $this->controleurUnpost->commenter($contenu, $numero_post);
                 }
                 else
                 throw new Exception ('Action non valide');
@@ -46,7 +47,16 @@ class routeur{
         $vue = new vue('Erreur');
         $vue->generer(array('messageerreur' => $messageerreur));
     }
+
+    private function getparametre($tableau, $nom){
+        if(isset($tableau[$nom])){
+            return $tableau[$nom];
+        }
+        else
+            throw new Exception ('Paramètre' .$nom. 'absent');
+    }
 }
+
 
 
 ?>

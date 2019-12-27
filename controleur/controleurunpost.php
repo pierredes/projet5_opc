@@ -23,6 +23,11 @@ class controleurUnpost{
         $vue = new vue("post");
         $vue->generer(array('post' => $post, 'commentaire' => $commentaire));
     }
+
+    public function commenter($contenu, $numero_post){
+        $this->commentaire->ajouteruncomentaire($contenu, $numero_post);
+        $this->detailsunpost($numero_post);
+    }
 }
 
 
