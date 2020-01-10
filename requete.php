@@ -7,7 +7,7 @@ class requete {
     private $parametres;
 
     public function __construct($parametres){
-        $this->parametre = $parametres;
+        $this->parametres = $parametres;
     }
 
     // renvoie vrai si le parametre existe dans la requete

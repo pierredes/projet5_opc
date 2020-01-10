@@ -1,60 +1,56 @@
 <?php
 
-require_once 'controleur/controleuraccueil.php';
-require_once 'controleur/controleurunpost.php';
+require_once 'requete.php';
 require_once 'vue/vue.php';
 
 class routeur{
-    
-    private $controleuraccueil;
-    private $controleurUnpost;
-
-    public function __construct(){
-        $this->controleuraccueil = new controleuraccueil();
-        $this->controleurUnpost = new controleurUnpost();
-    }
 
     public function routerrequete(){
         try{
-            if(isset($_GET['action'])){
-                if($_GET['action'] == 'post'){
-                    $idpost = intval($_GET['numero_post']);
-                    if($idpost != 0){
-                        $this->controleurUnpost->detailsunpost($idpost);
-                    }
-                    else
-                        throw new Exception ('Identifiant de post invalide');
-                }
-                else if ($_GET["action"] == 'commenter'){
-                    $contenu = $this->getparametre($_POST, 'contenu');
-                    $numero_post = $this->getparametre($_POST, 'numero_post');
-                    $this->controleurUnpost->commenter($contenu, $numero_post);
-                }
-                else
-                throw new Exception ('Action non valide');
-            }
-            else{ // aucune action défini : affichage de la page d'accueil
-                $this->controleuraccueil->accueil();
-            }
+            $requete = new requete(array_merge($_GET, $_POST));
+            $controleur = $this->creercontroleur($requete);
+            $action = $this->creeraction($requete);
+            $controleur->executeraction($action);
         }
         catch (Exception $e){
-            $this->erreur($e->getMessage());
+            $this->erreur($e);
         }
     }
 
-    // affichage d'une erreur
-    private function erreur($messageerreur){
-        $vue = new vue('Erreur');
-        $vue->generer(array('messageerreur' => $messageerreur));
-    }
-
-    private function getparametre($tableau, $nom){
-        if(isset($tableau[$nom])){
-            return $tableau[$nom];
+    private function creercontroleur(requete $requete){
+        $controleur = 'accueil'; // controleur par défaut
+        if($requete->parametreexiste('controleur')){
+            $controleur = $requete->getparametre('controleur');
+            
+        }
+        $classecontroleur = 'controleur'. $controleur;
+        $fichiercontroleur = 'controleur/'. $classecontroleur . '.php';
+        if(file_exists($fichiercontroleur)){            
+            require($fichiercontroleur);
+            $controleur = new $classecontroleur();
+            $controleur->setrequete($requete);
+            return $controleur;
         }
         else
-            throw new Exception ('Paramètre' .$nom. 'absent');
+            throw new Exception("Fichier' $fichiercontroleur 'introuvable");
+
     }
+
+    private function creeraction(requete $requete){
+        $action = "index"; // action par défaut
+        if($requete->parametreexiste('action')){
+            $action = $requete->getparametre('action');
+        }
+        return $action;
+    }
+
+
+    // affichage d'une erreur
+    private function erreur(Exception $messageerreur){
+        $vue = new vue('Erreur');
+        $vue->generer(array('messageerreur' => $messageerreur->getMessage()));
+    }
+
 }
 
 

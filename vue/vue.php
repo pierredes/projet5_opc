@@ -6,9 +6,13 @@ class vue{
 
     private $titre;
 
-    public function __construct($action){
-        // nom de la page à afficher en fonction de l'action a effectuer
-        $this->fichier = "vue/vue" .$action. ".php";
+    public function __construct($action, $controleur = ""){
+        // nom de la page à afficher en fonction de l'action a effectuer et du constructeur
+        $fichier = "vue/";
+        if($controleur != ""){
+            $fichier = $fichier . $controleur . "/";
+        }
+        $this->fichier = $fichier .$action. ".php";
     }
 
     // génère et affiche la vue
