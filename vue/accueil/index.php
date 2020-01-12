@@ -3,7 +3,7 @@
 <?php foreach ($post as $posts): ?>
     <article>
         <header>
-            <a href="<?= "index.php?action=post&numero_post=" . $this->nettoyer($posts['numero_post']) ?>">
+            <a href="<?= "index.php?controleur=unpost&action=index&numero_post=" . $this->nettoyer($posts['numero_post']) ?>">
                 <h1 class="titreBillet"><?= $this->nettoyer($posts['titre']) ?> </h1>
             </a>
             <time><?= $this->nettoyer($posts['date_maj']) ?> </time>

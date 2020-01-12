@@ -8,11 +8,8 @@ class routeur{
     public function routerrequete(){
         try{
             $requete = new requete(array_merge($_GET, $_POST));
-            var_dump($requete);
             $controleur = $this->creercontroleur($requete);
-            var_dump($controleur);
             $action = $this->creeraction($requete);
-            var_dump($action);
             $controleur->executeraction($action);
         }
         catch (Exception $e){
@@ -28,8 +25,6 @@ class routeur{
             
         }
         $classecontroleur = 'controleur'. $controleur;
-        var_dump($controleur);
-        var_dump($classecontroleur);
         $fichiercontroleur = 'controleur/'. $classecontroleur . '.php';
         if(file_exists($fichiercontroleur)){            
             require($fichiercontroleur);

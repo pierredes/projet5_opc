@@ -30,7 +30,6 @@ class vue{
         if(file_exists($fichier)){
             // Rend les éléments du tableau $donnees visible dans la vue
             extract($donnees);
-
             ob_start();
             require $fichier;
             return ob_get_clean();
