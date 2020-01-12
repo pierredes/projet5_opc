@@ -2,6 +2,7 @@
 <html lang="fr">
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <base href="<=? $racineweb ?>">
         <link rel="stylesheet" href="contenu/style.css">
         <title>Mon blog</title>
     </head>

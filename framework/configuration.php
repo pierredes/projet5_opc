@@ -1,13 +1,13 @@
 <?php
 
-class configutaion{
+class configuration{
 
     private static $parametre;
 
     // fonction qui renvoie la d'un paramètre de configuration
 
     public static function valeurparametre($nom, $valeurdefaut = null){
-        if(isset(self::tableauparametre() [$nom])){
+        if(isset(self::tableauparametre()[$nom])){
             $valeur = self::tableauparametre()[$nom];
         }
         else{

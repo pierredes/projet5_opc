@@ -1,7 +1,7 @@
 <?php
 
 require_once 'requete.php';
-require_once 'vue/vue.php';
+require_once 'vue.php';
 
 abstract class controleur{
 
@@ -25,7 +25,7 @@ abstract class controleur{
 
     public abstract function index();
 
-    protected function generervue($donneesvue =array()){
+    protected function generervue($donneesvue = array()){
         $classecontroleur = get_class($this);
         $controleur = str_replace("controleur", "", $classecontroleur);
         $vue = new vue($this->action, $controleur);

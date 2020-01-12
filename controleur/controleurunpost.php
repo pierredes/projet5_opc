@@ -2,10 +2,10 @@
 
 require_once 'modele/post.php';
 require_once 'modele/commentaire.php';
-require_once 'vue/vue.php';
+require_once 'framework/controleur.php';
 
 
-class controleurUnpost{
+class controleurUnpost extends controleur{
 
     private $post;
     private $commentaire;
@@ -17,16 +17,18 @@ class controleurUnpost{
 
     // affiche les détails d'un post
 
-    public function detailsunpost($idpost){
+    public function index(){
+        $idpost = $this->requete->getparametre('id');
         $post = $this->post->detailspost($idpost);
         $commentaire = $this->commentaire->commentairedunpost($idpost);
-        $vue = new vue("post");
-        $vue->generer(array('post' => $post, 'commentaire' => $commentaire));
+        $this->generervue(array('post' => $post, 'commentaire' => $commentaire));
     }
 
-    public function commenter($contenu, $numero_post){
+    public function commenter(){
+        $idpost = $this->requete->getparametre('id');
+        $contenu = $this->requete->getparametre('contenu');
         $this->commentaire->ajouteruncomentaire($contenu, $numero_post);
-        $this->detailsunpost($numero_post);
+        $this->executeraction('index');
     }
 }
 

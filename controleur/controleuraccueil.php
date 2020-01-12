@@ -1,9 +1,9 @@
 <?php
 
 require_once 'modele/post.php';
-require_once 'vue/vue.php';
+require_once 'framework/controleur.php';
 
-class controleuraccueil{
+class controleuraccueil extends controleur{
     private $post;
 
     public function __construct(){
@@ -11,10 +11,9 @@ class controleuraccueil{
     }
 
     // Affiche tous les posts du post du blog
-    public function accueil(){
+    public function index(){
         $post = $this->post->touslesposts();
-        $vue = new vue('Accueil');
-        $vue->generer(array('post' => $post));
+        $this->generervue(array('post' => $post));
     }
 }
 
